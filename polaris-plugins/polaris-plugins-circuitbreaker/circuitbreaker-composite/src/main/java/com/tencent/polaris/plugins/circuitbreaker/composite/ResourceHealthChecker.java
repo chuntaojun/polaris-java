@@ -33,6 +33,7 @@ import com.tencent.polaris.api.utils.RuleUtils;
 import com.tencent.polaris.api.utils.StringUtils;
 import com.tencent.polaris.client.pojo.Node;
 import com.tencent.polaris.logging.LoggerFactory;
+import com.tencent.polaris.logging.LoggingConsts;
 import com.tencent.polaris.specification.api.v1.fault.tolerance.FaultDetectorProto.FaultDetectRule;
 import com.tencent.polaris.specification.api.v1.fault.tolerance.FaultDetectorProto.FaultDetectRule.Protocol;
 import com.tencent.polaris.specification.api.v1.fault.tolerance.FaultDetectorProto.FaultDetector;
@@ -50,6 +51,8 @@ import org.slf4j.Logger;
 public class ResourceHealthChecker {
 
     private static final Logger LOG = LoggerFactory.getLogger(ResourceHealthChecker.class);
+
+    private static final Logger DETECT_LOG = LoggerFactory.getLogger(LoggingConsts.LOGGING_FAULTDETECT_EVENT);
 
     private static final int DEFAULT_CHECK_INTERVAL = 10;
 
@@ -187,6 +190,8 @@ public class ResourceHealthChecker {
             detectResult = doCheck(instance, Protocol.TCP);
         }
         if (null == detectResult) {
+            DETECT_LOG.info("instance id:{} host:{} port:{} not detectResult", instance.getId(), instance.getHost(),
+                    instance.getPort());
             return;
         }
         ResourceStat resourceStat = new ResourceStat(resource, 0, 0, detectResult.getRetStatus());

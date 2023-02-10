@@ -3,7 +3,7 @@
 <Configuration status="WARN">
     <Appenders>
         <RollingFile name="POLARIS_LOG_FILE" fileName="${sys:polaris.log.home}/polaris.log"
-                filePattern="${sys:polaris.log.home}/polaris.log.%d{yyyy-MM-dd}.%i">
+                     filePattern="${sys:polaris.log.home}/polaris.log.%d{yyyy-MM-dd}.%i">
             <PatternLayout>
                 <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %p [%-5t:%c{2}] %m%n</Pattern>
             </PatternLayout>
@@ -17,8 +17,8 @@
         </RollingFile>
 
         <RollingFile name="POLARIS_UPDATE_EVENT_LOG_FILE"
-                fileName="${sys:polaris.log.home}/polaris-update-event.log"
-                filePattern="${sys:polaris.log.home}/polaris-update-event.log.%d{yyyy-MM-dd}.%i">
+                     fileName="${sys:polaris.log.home}/polaris-update-event.log"
+                     filePattern="${sys:polaris.log.home}/polaris-update-event.log.%d{yyyy-MM-dd}.%i">
             <PatternLayout>
                 <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %p [%-5t:%c{2}] %m%n</Pattern>
             </PatternLayout>
@@ -32,8 +32,8 @@
         </RollingFile>
 
         <RollingFile name="POLARIS_CIRCUIT_BREAKER_EVENT_LOG_FILE"
-                fileName="${sys:polaris.log.home}/polaris-circuitbreaker-event.log"
-                filePattern="${sys:polaris.log.home}/polaris-circuitbreaker-event.log.%d{yyyy-MM-dd}.%i">
+                     fileName="${sys:polaris.log.home}/polaris-circuitbreaker-event.log"
+                     filePattern="${sys:polaris.log.home}/polaris-circuitbreaker-event.log.%d{yyyy-MM-dd}.%i">
             <PatternLayout>
                 <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %p [%-5t:%c{2}] %m%n</Pattern>
             </PatternLayout>
@@ -46,7 +46,24 @@
 
             <DefaultRolloverStrategy max="${sys:polaris.circuitbreaker.event.log.retain.count:-7}"/>
         </RollingFile>
+
+        <RollingFile name="POLARIS_FAULT_DETECT_EVENT_LOG_FILE"
+                     fileName="${sys:polaris.log.home}/polaris-faultdetect-event.log"
+                     filePattern="${sys:polaris.log.home}/polaris-faultdetect-event.log.%d{yyyy-MM-dd}.%i">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %p [%-5t:%c{2}] %m%n</Pattern>
+            </PatternLayout>
+
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy
+                        size="${sys:polaris.faultdetect.event.log.file.size:-10MB}"/>
+            </Policies>
+
+            <DefaultRolloverStrategy max="${sys:polaris.faultdetect.event.log.retain.count:-7}"/>
+        </RollingFile>
     </Appenders>
+
 
     <Loggers>
         <Logger name="com.tencent.polaris"
@@ -63,6 +80,11 @@
                 level="${sys:polaris.circuitbreaker.event.log.level:-info}"
                 additivity="false">
             <AppenderRef ref="POLARIS_CIRCUIT_BREAKER_EVENT_LOG_FILE"/>
+        </Logger>
+        <Logger name="polaris-faultdetect-event"
+                level="${sys:polaris.faultdetect.event.log.level:-info}"
+                additivity="false">
+            <AppenderRef ref="POLARIS_FAULT_DETECT_EVENT_LOG_FILE"/>
         </Logger>
         <!--        <AsyncLogger name="polaris-update-event-async"-->
         <!--                level="${sys:polaris-update-event.log.level:-info}"-->

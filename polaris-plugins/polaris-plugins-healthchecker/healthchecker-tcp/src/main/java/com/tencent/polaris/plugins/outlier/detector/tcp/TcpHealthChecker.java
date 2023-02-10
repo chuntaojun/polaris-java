@@ -33,6 +33,7 @@ import com.tencent.polaris.api.pojo.RetStatus;
 import com.tencent.polaris.api.utils.ConversionUtils;
 import com.tencent.polaris.api.utils.StringUtils;
 import com.tencent.polaris.logging.LoggerFactory;
+import com.tencent.polaris.logging.LoggingConsts;
 import com.tencent.polaris.specification.api.v1.fault.tolerance.FaultDetectorProto.FaultDetectRule;
 import com.tencent.polaris.specification.api.v1.fault.tolerance.FaultDetectorProto.FaultDetectRule.Protocol;
 import com.tencent.polaris.specification.api.v1.fault.tolerance.FaultDetectorProto.TcpProtocolConfig;
@@ -53,7 +54,7 @@ import org.slf4j.Logger;
  */
 public class TcpHealthChecker implements HealthChecker, PluginConfigProvider {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TcpHealthChecker.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LoggingConsts.LOGGING_FAULTDETECT_EVENT);
 
     private TcpProtocolConfig config;
 

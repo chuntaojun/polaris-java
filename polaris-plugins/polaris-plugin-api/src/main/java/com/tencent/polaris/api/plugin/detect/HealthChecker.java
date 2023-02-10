@@ -17,7 +17,6 @@
 
 package com.tencent.polaris.api.plugin.detect;
 
-import com.google.protobuf.Message;
 import com.tencent.polaris.api.exception.PolarisException;
 import com.tencent.polaris.api.plugin.Plugin;
 import com.tencent.polaris.api.pojo.DetectResult;

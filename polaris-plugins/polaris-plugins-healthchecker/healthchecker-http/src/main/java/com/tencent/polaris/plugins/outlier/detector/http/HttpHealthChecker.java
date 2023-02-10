@@ -32,6 +32,7 @@ import com.tencent.polaris.api.pojo.Instance;
 import com.tencent.polaris.api.pojo.RetStatus;
 import com.tencent.polaris.api.utils.StringUtils;
 import com.tencent.polaris.logging.LoggerFactory;
+import com.tencent.polaris.logging.LoggingConsts;
 import com.tencent.polaris.specification.api.v1.fault.tolerance.FaultDetectorProto.FaultDetectRule;
 import com.tencent.polaris.specification.api.v1.fault.tolerance.FaultDetectorProto.FaultDetectRule.Protocol;
 import com.tencent.polaris.specification.api.v1.fault.tolerance.FaultDetectorProto.HttpProtocolConfig;
@@ -51,7 +52,7 @@ import org.slf4j.Logger;
  */
 public class HttpHealthChecker implements HealthChecker, PluginConfigProvider {
 
-    private static final Logger LOG = LoggerFactory.getLogger(HttpHealthChecker.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LoggingConsts.LOGGING_FAULTDETECT_EVENT);
 
     private static final String DEFAULT_METHOD = "GET";
 
